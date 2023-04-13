@@ -3,7 +3,11 @@ from typing import Any, BinaryIO
 
 
 def hexstr_to_bytes(input_str: str) -> bytes:
-	@@ -11,37 +13,44 @@ def hexstr_to_bytes(input_str: str) -> bytes:
+    """
+    Converts a hex string into bytes, removing the 0x if it's present.
+    """
+    if input_str.startswith("0x") or input_str.startswith("0X"):
+        return bytes.fromhex(input_str[2:])
     return bytes.fromhex(input_str)
 
 
@@ -41,7 +45,10 @@ def make_sized_bytes(size: int):
         f = io.BytesIO()
         self.stream(f)
         return bytes(f.getvalue())
-	@@ -52,14 +61,10 @@ def __str__(self):
+
+    def __str__(self):
+        return self.hex()
+
     def __repr__(self):
         return "<%s: %s>" % (self.__class__.__name__, str(self))
 
