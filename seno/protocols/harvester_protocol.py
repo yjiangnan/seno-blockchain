@@ -13,6 +13,12 @@ Protocol between harvester and farmer.
 Note: When changing this file, also change protocol_message_types.py, and the protocol version in shared_protocol.py
 """
 
+@streamable
+@dataclass(frozen=True)
+class PoolDifficulty(Streamable):
+    difficulty: uint64
+    sub_slot_iters: uint64
+    pool_contract_puzzle_hash: bytes32
 
 @dataclass(frozen=True)
 @streamable
@@ -29,6 +35,7 @@ class NewSignagePointHarvester(Streamable):
     sub_slot_iters: uint64
     signage_point_index: uint8
     sp_hash: bytes32
+    pool_difficulties: List[PoolDifficulty]
 
 
 @dataclass(frozen=True)
